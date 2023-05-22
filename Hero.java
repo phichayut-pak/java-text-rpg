@@ -9,7 +9,7 @@ public class Hero{
   public static int health;
   public static int maxHealth;
   public static int job;
-  public static int money = 100;
+  public static int gold = 100;
   public static int stamina;
   public static int maxStamina;
   public static int monsterDungeonProgress;
@@ -188,7 +188,7 @@ public class Hero{
               System.out.println(ConsoleColors.GREEN_BRIGHT);
 
               System.out.println("Quest Complete: " + q.name);
-              Hero.money = Hero.money + q.rewardGold;
+              Hero.gold = Hero.gold + q.rewardGold;
               System.out.format("You gained %d gold\n", q.rewardGold);
               
               for (Item i : q.rewardItems){
@@ -234,7 +234,7 @@ public class Hero{
     System.out.println(ConsoleColors.YELLOW_BOLD + "Health: " + ConsoleColors.GREEN_BOLD + Hero.health + "/" + Hero.maxHealth);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Stamina: " + ConsoleColors.GREEN_BOLD + Hero.stamina + "/" + Hero.maxStamina);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Level: " + ConsoleColors.GREEN_BOLD + Hero.level);
-    System.out.println(ConsoleColors.YELLOW_BOLD + "Money: " + ConsoleColors.GREEN_BOLD + Hero.money + ConsoleColors.WHITE_BOLD + " 🪙");
+    System.out.println(ConsoleColors.YELLOW_BOLD + "Gold: " + ConsoleColors.GREEN_BOLD + Hero.gold + ConsoleColors.WHITE_BOLD + " 🪙");
     System.out.println(ConsoleColors.YELLOW_BOLD + "Attack Damage: " + ConsoleColors.GREEN_BOLD + Hero.attackDamage);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Magic Damage: " + ConsoleColors.GREEN_BOLD + Hero.magicDamage);
   }
