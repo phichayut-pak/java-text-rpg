@@ -5,15 +5,13 @@ public class Hero {
   public static String name;
   public static int level = 1;
   public static int xp;
-  public static int speed;
   public static int attackDamage;
   public static int magicDamage;
   public static int health;
   public static int maxHealth;
   public static int job;
   public static int gold = 100;
-  public static int stamina;
-  public static int maxStamina;
+  public static int speed;
   public static int monsterDungeonProgress;
   public static ArrayList<Item> inventory = new ArrayList<Item>();
   public static ArrayList<Quest> quests = new ArrayList<Quest>();
@@ -43,8 +41,6 @@ public class Hero {
         Hero.health = Hero.maxHealth;
         Hero.attackDamage = 15;
         Hero.magicDamage = 0;
-        Hero.maxStamina = 20;
-        Hero.stamina = Hero.maxStamina;
         Hero.speed = 10;
         break;
       } else if (job == 2) {
@@ -52,8 +48,6 @@ public class Hero {
         Hero.health = Hero.maxHealth;
         Hero.attackDamage = 0;
         Hero.magicDamage = 20;
-        Hero.maxStamina = 20;
-        Hero.stamina = Hero.maxStamina;
         Hero.speed = 20;
         break;
       } else if (job == 3) {
@@ -61,8 +55,6 @@ public class Hero {
         Hero.health = Hero.maxHealth;
         Hero.attackDamage = 10;
         Hero.magicDamage = 5;
-        Hero.maxStamina = 15;
-        Hero.stamina = Hero.maxStamina;
         Hero.speed = 15;
         break;
       } else {
@@ -77,8 +69,8 @@ public class Hero {
 
     while (initialStatsUpgrade != 0) {
       System.out.format("You are given %d points left to upgrade your initial stats!\n", initialStatsUpgrade);
-      System.out.format("1. Attack Damage: %d\n2. Magic Damage: %d\n3. Max Stamina: %d\n4. Max Health: %d\n",
-          Hero.attackDamage, Hero.magicDamage, Hero.maxStamina, Hero.maxHealth);
+      System.out.format("1. Attack Damage: %d\n2. Magic Damage: %d\n3. Speed: %d\n4. Max Health: %d\n",
+          Hero.attackDamage, Hero.magicDamage, Hero.speed, Hero.maxHealth);
       System.out.println("You're choosing (1/2/3/4): ");
 
       int chosenNumber = Input.getInt();
@@ -98,8 +90,8 @@ public class Hero {
 
         case 3:
           initialStatsUpgrade--;
-          Hero.maxStamina++;
-          Hero.stamina = Hero.maxStamina;
+          Hero.speed++;
+
 
           break;
 
@@ -233,12 +225,13 @@ public class Hero {
     System.out.println(
         ConsoleColors.YELLOW_BOLD + "Health: " + ConsoleColors.GREEN_BOLD + Hero.health + "/" + Hero.maxHealth);
     System.out.println(
-        ConsoleColors.YELLOW_BOLD + "Stamina: " + ConsoleColors.GREEN_BOLD + Hero.stamina + "/" + Hero.maxStamina);
+        ConsoleColors.YELLOW_BOLD + "Speed: " + ConsoleColors.GREEN_BOLD + Hero.speed);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Level: " + ConsoleColors.GREEN_BOLD + Hero.level);
     System.out.println(
-        ConsoleColors.YELLOW_BOLD + "Gold: " + ConsoleColors.GREEN_BOLD + Hero.gold + ConsoleColors.WHITE_BOLD + " 🪙");
+        ConsoleColors.YELLOW_BOLD + "Gold: " + ConsoleColors.GREEN_BOLD + Hero.gold);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Attack Damage: " + ConsoleColors.GREEN_BOLD + Hero.attackDamage);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Magic Damage: " + ConsoleColors.GREEN_BOLD + Hero.magicDamage);
+    System.out.println(ConsoleColors.RESET);
   }
 
   public static void takeDamage(int damage) {
@@ -313,6 +306,8 @@ public class Hero {
 
     Hero.xp += enemy.rewardXP;
     System.out.format("%d xp gained\n", enemy.rewardXP);
+
+    System.out.println(ConsoleColors.RESET);
   }
 
   public static boolean checkDefeat() {

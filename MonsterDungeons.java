@@ -1,9 +1,8 @@
 
 public class MonsterDungeons {
-	private static int monsterDungeonOneCount = 0;
-	// Zombie Atk: 1, Health: 5, Speed: 5 ( wave 1 - 5)
-	// Spider Atk: 3, Health: 1, Speed: 7 ( wave 6 - 8 )
-	// Werewolf Atk: 3, Health: 5, Speed: 10 ( wave 9-10 )
+	// Zombie Atk: 5, Health: 10, Speed: 10 
+	// Spider Atk: 3, Health: 1, Speed: 7 
+	// Werewolf Atk: 3, Health: 5, Speed: 10 
 
 	public static void monsterDungeonOne() {
 		Game.clearScreen();
@@ -20,9 +19,9 @@ public class MonsterDungeons {
 			for (int i = 0; i < 10; i++) {
 				System.out.println(ConsoleColors.GREEN_BOLD + "[Zombie] " + ConsoleColors.RESET + "Mrh? Mrh? Bruhhhh");
 				Monster zombie = new Monster("Zombie");
-				zombie.attackDamage = 1;
-				zombie.health = 5;
-				zombie.speed = 5;
+				zombie.attackDamage = 5;
+				zombie.health = 10;
+				zombie.speed = 10;
 				zombie.rewardGold = 10;
 				zombie.rewardXP = 100;
 
@@ -31,6 +30,7 @@ public class MonsterDungeons {
 				if (Hero.health > 0) {
 					Game.clearScreen();
 					Hero.lootMonster(zombie);
+					Input.pressEnterToContinue();
 					System.out.println(ConsoleColors.RESET);
 
 				} else {
@@ -38,6 +38,12 @@ public class MonsterDungeons {
 					Game.doAfterlife();
 				}
 			}
+			Game.clearScreen();
+			Hero.completeQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
+			Input.pressEnterToContinue();
+
+
+			
 
 		} else if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)) {
 			System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
@@ -52,3 +58,6 @@ public class MonsterDungeons {
 		}
 	}
 }
+
+
+// can continue with the second monster dungeon

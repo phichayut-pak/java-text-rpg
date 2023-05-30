@@ -12,7 +12,7 @@ public class Town {
 
             System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
                     + "Please choose where you are going or what you want to do( " + ConsoleColors.BLUE
-                    + "house, temple, shop, monster dungeon, boss dungeon, inventory, quests" + ConsoleColors.RESET
+                    + "house, temple, shop, monster dungeon, boss dungeon, inventory, quests, stats" + ConsoleColors.RESET
                     + ")");
 
             String answer = Input.getString().toLowerCase();
@@ -39,7 +39,7 @@ public class Town {
                 Input.pressEnterToContinue();
                 return Locations.MONSTER_DUNGEON_START;
             } else if (answer.equals("boss dungeon")) {
-                System.out
+                System.out  
                         .println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RED_BOLD
                                 + "PREPARE FOR THE DEATH" + ConsoleColors.RESET);
                 Input.pressEnterToContinue();
@@ -52,7 +52,13 @@ public class Town {
                 Hero.showQuests();
                 Input.pressEnterToContinue();
                 return Locations.TOWN_START;
-            } else {
+            } else if (answer.equals("stats")) {
+                Hero.displayStats();
+                Input.pressEnterToContinue();
+                return Locations.TOWN_START;
+            }
+            
+            else {
                 System.out.println(
                         ConsoleColors.RED_BOLD + "[Error] " + ConsoleColors.RESET + "Please enter the valid response");
                 Input.pressEnterToContinue();
@@ -216,16 +222,16 @@ public class Town {
 
                 System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET
                         + "Each level of the dungeon will have 10 monsters. You must hunt all of them to clear each dungeon.");
-                Item dagger = new Item(Item.DAGGER);
-                dagger.name = "Ancient Dagger";
-                dagger.description = "Dagger from the ancient era that were used by the ninjas";
-                dagger.price = 150;
+                Item monsterDungeonTwoKey = new Item(Item.MONSTER_DUNGEON_TWO_KEY);
+                monsterDungeonTwoKey.name = "Monster Dungeon 2 Key";
+                monsterDungeonTwoKey.description = "A key to unlock the second monster dungeon. You can get the key after clearing the first monster dungeon";
+                monsterDungeonTwoKey.price = 100;
 
                 Quest monsterDungeonOneQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
                 monsterDungeonOneQuest.name = "Hunt 10 monsters in Dungeon One";
-                monsterDungeonOneQuest.description = "You must hunt 10 monsters in the Dungeon One and meet the Dungeon Master once again";
+                monsterDungeonOneQuest.description = "You must hunt 10 monsters in the Dungeon One";
                 monsterDungeonOneQuest.rewardGold = 20;
-                monsterDungeonOneQuest.rewardItems.add(dagger);
+                monsterDungeonOneQuest.rewardItems.add(monsterDungeonTwoKey);
                 Hero.addQuest(monsterDungeonOneQuest);
             }
 
