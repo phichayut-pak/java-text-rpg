@@ -4,6 +4,8 @@ public class Hero {
   // put your variables here, they should be static
   public static String name;
   public static int level = 1;
+  public static int xp;
+  public static int speed;
   public static int attackDamage;
   public static int magicDamage;
   public static int health;
@@ -43,6 +45,7 @@ public class Hero {
         Hero.magicDamage = 0;
         Hero.maxStamina = 20;
         Hero.stamina = Hero.maxStamina;
+        Hero.speed = 10;
         break;
       } else if (job == 2) {
         Hero.maxHealth = 15;
@@ -51,6 +54,7 @@ public class Hero {
         Hero.magicDamage = 20;
         Hero.maxStamina = 20;
         Hero.stamina = Hero.maxStamina;
+        Hero.speed = 20;
         break;
       } else if (job == 3) {
         Hero.maxHealth = 15;
@@ -59,6 +63,7 @@ public class Hero {
         Hero.magicDamage = 5;
         Hero.maxStamina = 15;
         Hero.stamina = Hero.maxStamina;
+        Hero.speed = 15;
         break;
       } else {
         System.out.println("Invalid input");
@@ -234,6 +239,91 @@ public class Hero {
         ConsoleColors.YELLOW_BOLD + "Gold: " + ConsoleColors.GREEN_BOLD + Hero.gold + ConsoleColors.WHITE_BOLD + " 🪙");
     System.out.println(ConsoleColors.YELLOW_BOLD + "Attack Damage: " + ConsoleColors.GREEN_BOLD + Hero.attackDamage);
     System.out.println(ConsoleColors.YELLOW_BOLD + "Magic Damage: " + ConsoleColors.GREEN_BOLD + Hero.magicDamage);
+  }
+
+  public static void takeDamage(int damage) {
+    Hero.health = Hero.health - damage;
+
+    if (Hero.health < 0) {
+      Hero.health = 0;
+    }
+
+    System.out.println(ConsoleColors.RED);
+    System.out.format("\n\nYou took %d damage, %d health remaining.", damage, Hero.health);
+    System.out.println(ConsoleColors.RESET);
+  }
+
+  public static void attack(Monster enemy) {
+
+    int attack = Game.random.nextInt(Hero.attackDamage) + 1;
+
+    enemy.health = enemy.health - attack;
+
+    System.out.println(ConsoleColors.GREEN_BRIGHT);
+    System.out.format("\n%s attacks %s for %d damage! %d health remaining.", Hero.name, enemy.name, attack,
+        enemy.health);
+    System.out.println(ConsoleColors.RESET);
+
+    Game.sleep(1);
+  }
+
+  public static void fight(Monster enemy) {
+    Game.clearScreen();
+
+    System.out.println("********COMBAT********");
+
+    boolean fightOver = false;
+
+    do {
+      if (Hero.speed >= enemy.speed) { // hero is faster
+        Hero.attack(enemy);
+        if (enemy.checkDefeat()) {
+          fightOver = true;
+        } else {
+          enemy.attack();
+          if (Hero.checkDefeat()) {
+            fightOver = true;
+          }
+        }
+
+      } else { // enemy is faster
+        enemy.attack();
+        if (Hero.checkDefeat()) {
+          fightOver = true;
+        } else {
+
+          Hero.attack(enemy);
+          if (enemy.checkDefeat()) {
+            fightOver = true;
+          }
+
+        }
+      }
+    } while (fightOver == false);
+
+    Input.pressEnterToContinue();
+  }
+
+  public static void lootMonster(Monster enemy) {
+    System.out.println(ConsoleColors.GREEN_BRIGHT);
+    System.out.println("You looted the " + enemy.name);
+
+    Hero.gold += enemy.rewardGold;
+    System.out.format("%d gold obtained\n", enemy.rewardGold);
+
+    Hero.xp += enemy.rewardXP;
+    System.out.format("%d xp gained\n", enemy.rewardXP);
+  }
+
+  public static boolean checkDefeat() {
+    if (Hero.health > 0) {
+      return false;
+    } else {
+      System.out.println(ConsoleColors.RED);
+      System.out.println("You Died.");
+      System.out.println(ConsoleColors.RESET);
+      return true;
+    }
   }
 
 }

@@ -93,4 +93,16 @@ public class Game {
     Input.pressEnterToContinue();
     return Locations.QUITGAME;
   }
+
+  public static void sleep(int seconds) {
+
+    long start = System.currentTimeMillis();
+    while (start >= System.currentTimeMillis() - seconds * 1000)
+      ;
+
+  }
+
+  public static String keyword(String text) {
+    return colorize(text, ConsoleColors.BLUE);
+  }
 }
