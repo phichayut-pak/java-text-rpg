@@ -44,7 +44,9 @@ public class Game {
 
     // game loop will go here
 
-    System.out.println(ConsoleColors.RED_BOLD + "GAME OVER");
+    Art.quitGameArt();
+    Art.quitGameTitle();
+    System.out.print(ConsoleColors.RESET);
   }
 
   public static void introduction() {

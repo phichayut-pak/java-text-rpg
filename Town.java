@@ -222,8 +222,8 @@ public class Town {
             monsterDungeonTwoKey.price = 100;
 
             Quest monsterDungeonOneQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
-            monsterDungeonOneQuest.name = "Hunt 10 monsters in Dungeon One";
-            monsterDungeonOneQuest.description = "You must hunt 10 monsters in the Dungeon One";
+            monsterDungeonOneQuest.name = "Hunt 10 zombies in Dungeon One";
+            monsterDungeonOneQuest.description = "You must hunt 10 zpmbies in the Dungeon One";
             monsterDungeonOneQuest.rewardGold = 20;
             monsterDungeonOneQuest.rewardItems.add(monsterDungeonTwoKey);
             Hero.addQuest(monsterDungeonOneQuest);
@@ -232,28 +232,64 @@ public class Town {
         // MONSTER DUNGEON LEVEL TWO
         if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)
                 && Hero.hasItem(Item.MONSTER_DUNGEON_THREE_KEY)
+                && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO)
                 && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
 
-            // give quest ( copy from the MONSTER DUNGEON LEVEL ONE )
+            Game.clearScreen();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET + "Ah, brave hero! You have conquered the first dungeon and now stand before the entrance of the next. Steel your heart, for greater challenges lie ahead. May fortune favor your endeavors!");
+            
+            Item monsterDungeonThreeKey = new Item(Item.MONSTER_DUNGEON_THREE_KEY);
+            monsterDungeonThreeKey.name = "Monster Dungeon 3 Key";
+            monsterDungeonThreeKey.description = "A key to unlock the third monster dungeon. You can get the key after clearing the second monster dungeon";
+            monsterDungeonThreeKey.price = 100;
+
+            Quest monsterDungeonTwoQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_TWO);
+            monsterDungeonTwoQuest.name = "Hunt 10 spiders in Dungeon Two";
+            monsterDungeonTwoQuest.description = "You must hunt 10 spiders in the Dungeon Two";
+            monsterDungeonTwoQuest.rewardGold = 20;
+            monsterDungeonTwoQuest.rewardItems.add(monsterDungeonThreeKey);
+            Hero.addQuest(monsterDungeonTwoQuest);
             Input.pressEnterToContinue();
         }
 
-        System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
-                ConsoleColors.RESET
-                + "Select where you want to go: ( " + ConsoleColors.BLUE
-                + "Monster Dungeon 1, Monster Dungeon 2, Monster Dungeon 3" + ConsoleColors.RESET + " )");
+        if(Hero.hasCompletedQuest(Quest.FIND_THE_WALLET)) {
+            
+            do {
+                Game.clearScreen();
+                System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
+                        ConsoleColors.RESET
+                        + "Select where you want to go: ( " + ConsoleColors.BLUE
+                        + "Monster Dungeon 1, Monster Dungeon 2, Monster Dungeon 3, back" + ConsoleColors.RESET + " )");
+                
+                String monsterChoice = Input.getString().toLowerCase();
+        
+                if (monsterChoice.equals("monster dungeon 1")) {
+                    MonsterDungeons.monsterDungeonOne();
+                    if(Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    }
+                    return Locations.TOWN_START;
+                } else if (monsterChoice.equals("monster dungeon 2")) {
+                    MonsterDungeons.monsterDungeonTwo();
+                    if(Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    }
+                    return Locations.TOWN_START;
+                } else if (monsterChoice.equals("monster dungeon 3")) {
+                    MonsterDungeons.monsterDungeonThree();
+                    if(Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    }
+                    return Locations.TOWN_START;
+                } else if (monsterChoice.equals("back")) {
+                    return Locations.TOWN_START;
+                } else {
 
-        String monsterChoice = Input.getString().toLowerCase();
-
-        if (monsterChoice.equals("monster dungeon 1")) {
-            MonsterDungeons.monsterDungeonOne();
-        } else if (monsterChoice.equals("monster dungeon 2")) {
-            MonsterDungeons.monsterDungeonTwo();
-        } else if (monsterChoice.equals("monster dungeon 3")) {
-            MonsterDungeons.monsterDungeonThree();
-        } else if (monsterChoice.equals("back")) {
-            return Locations.TOWN_START;
+                }
+            } while (true);
+        
         }
+
 
         return Locations.TOWN_START;
     }

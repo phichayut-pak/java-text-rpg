@@ -247,14 +247,32 @@ public class Hero {
   }
 
   public static void attack(Monster enemy) {
+    int attack = 0;
 
-    int attack = Game.random.nextInt(Hero.attackDamage) + 1;
+    if(Hero.job == 1) {
+      attack = Game.random.nextInt(Hero.attackDamage) + 3;
+    } else if (Hero.job == 2) {
+      attack = Game.random.nextInt(Hero.magicDamage) + 3;
+    } else if (Hero.job == 3) {
+      attack = Game.random.nextInt(((Hero.attackDamage + 10) + (Hero.magicDamage + 10)) / 2) + 3;
+    }
 
     enemy.health = enemy.health - attack;
 
     System.out.println(ConsoleColors.GREEN_BRIGHT);
-    System.out.format("\n%s attacks %s for %d damage! %d health remaining.", Hero.name, enemy.name, attack,
-        enemy.health);
+
+    if(Hero.job == 1) {
+
+      System.out.format("\n%s attacks %s for %d damage! %d health remaining.", Hero.name, enemy.name, attack,
+          enemy.health);
+    } else if (Hero.job == 2) {
+      System.out.format("\n%s blasted %s for %d damage! %d health remaining.", Hero.name, enemy.name, attack,
+      enemy.health);
+    } else if (Hero.job == 3) {
+      System.out.format("\n%s struck %s for %d damage! %d health remaining.", Hero.name, enemy.name, attack,
+      enemy.health);
+    }
+
     System.out.println(ConsoleColors.RESET);
 
     Game.sleep(1);
