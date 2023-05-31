@@ -1,8 +1,8 @@
 
 public class MonsterDungeons {
-	// Zombie Atk: 5, Health: 10, Speed: 10 
-	// Spider Atk: 3, Health: 1, Speed: 7 
-	// Werewolf Atk: 3, Health: 5, Speed: 10 
+	// Zombie Atk: 5, Health: 10, Speed: 10
+	// Spider Atk: 3, Health: 1, Speed: 7
+	// Werewolf Atk: 3, Health: 5, Speed: 10
 
 	public static void monsterDungeonOne() {
 		Game.clearScreen();
@@ -13,6 +13,11 @@ public class MonsterDungeons {
 			Input.pressEnterToContinue();
 
 			// START FIGHTING HERE
+		} else if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)) {
+			System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
+					+ "There is nothing in the dungeon since you already cleared them");
+
+			Input.pressEnterToContinue();
 		} else if (Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)) {
 			System.out.println(ConsoleColors.WHITE_BACKGROUND + ConsoleColors.BLACK_BOLD + "Monster 1");
 
@@ -27,29 +32,22 @@ public class MonsterDungeons {
 
 				Hero.fight(zombie);
 
-				if (Hero.health > 0) {
+				if (Hero.health < 0) {
+					Game.clearScreen();
+					Game.doAfterlife();
+					break;
+
+				} else {
 					Game.clearScreen();
 					Hero.lootMonster(zombie);
 					Input.pressEnterToContinue();
 					System.out.println(ConsoleColors.RESET);
-
-				} else {
-					Game.clearScreen();
-					Game.doAfterlife();
 				}
 			}
 			Game.clearScreen();
 			Hero.completeQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
 			Input.pressEnterToContinue();
 
-
-			
-
-		} else if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)) {
-			System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
-					+ "There is nothing in the dungeon since you already cleared them");
-
-			Input.pressEnterToContinue();
 		} else {
 			System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
 					ConsoleColors.RESET
@@ -57,7 +55,14 @@ public class MonsterDungeons {
 			Input.pressEnterToContinue();
 		}
 	}
-}
 
+	public static void monsterDungeonTwo() {
+
+	}
+
+	public static void monsterDungeonThree() {
+
+	}
+}
 
 // can continue with the second monster dungeon

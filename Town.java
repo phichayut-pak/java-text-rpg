@@ -12,7 +12,8 @@ public class Town {
 
             System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
                     + "Please choose where you are going or what you want to do( " + ConsoleColors.BLUE
-                    + "house, temple, shop, monster dungeon, boss dungeon, inventory, quests, stats" + ConsoleColors.RESET
+                    + "house, temple, shop, monster dungeon, boss dungeon, inventory, quests, stats"
+                    + ConsoleColors.RESET
                     + ")");
 
             String answer = Input.getString().toLowerCase();
@@ -39,7 +40,7 @@ public class Town {
                 Input.pressEnterToContinue();
                 return Locations.MONSTER_DUNGEON_START;
             } else if (answer.equals("boss dungeon")) {
-                System.out  
+                System.out
                         .println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RED_BOLD
                                 + "PREPARE FOR THE DEATH" + ConsoleColors.RESET);
                 Input.pressEnterToContinue();
@@ -57,7 +58,7 @@ public class Town {
                 Input.pressEnterToContinue();
                 return Locations.TOWN_START;
             }
-            
+
             else {
                 System.out.println(
                         ConsoleColors.RED_BOLD + "[Error] " + ConsoleColors.RESET + "Please enter the valid response");
@@ -189,10 +190,6 @@ public class Town {
             Input.pressEnterToContinue();
 
         } else if (Hero.hasCompletedQuest(Quest.FIND_THE_WALLET)) {
-            System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
-                    + "Dungeon Master is so happy that you returned his wallet");
-
-            Input.pressEnterToContinue();
 
         } else {
             System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET
@@ -209,43 +206,53 @@ public class Town {
             Input.pressEnterToContinue();
         }
 
-        // AFTER THE USER FINIHES WALLET QUEST, UNLOCK 3 MONSTER DUNGEONS
-        if (Hero.hasCompletedQuest(Quest.FIND_THE_WALLET)) {
+        // MONSTER DUNGEON LEVEL ONE
+        if (!Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE) && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO)
+                && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
             Game.clearScreen();
-
-            // IF USER HAVEN'T HAD ANY MONSTER DUNGEON QUEST
-            if (!Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE) || !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO)
-                    || !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
-                System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " +
-                        ConsoleColors.RESET
-                        + "Now you're free to enter the first monster dungeons.");
-
-                System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET
-                        + "Each level of the dungeon will have 10 monsters. You must hunt all of them to clear each dungeon.");
-                Item monsterDungeonTwoKey = new Item(Item.MONSTER_DUNGEON_TWO_KEY);
-                monsterDungeonTwoKey.name = "Monster Dungeon 2 Key";
-                monsterDungeonTwoKey.description = "A key to unlock the second monster dungeon. You can get the key after clearing the first monster dungeon";
-                monsterDungeonTwoKey.price = 100;
-
-                Quest monsterDungeonOneQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
-                monsterDungeonOneQuest.name = "Hunt 10 monsters in Dungeon One";
-                monsterDungeonOneQuest.description = "You must hunt 10 monsters in the Dungeon One";
-                monsterDungeonOneQuest.rewardGold = 20;
-                monsterDungeonOneQuest.rewardItems.add(monsterDungeonTwoKey);
-                Hero.addQuest(monsterDungeonOneQuest);
-            }
-
-            System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " +
                     ConsoleColors.RESET
-                    + "Select where you want to go: ( " + ConsoleColors.BLUE
-                    + "Monster Dungeon 1, Monster Dungeon 2, Monster Dungeon 3" + ConsoleColors.RESET + " )");
+                    + "Now you're free to enter the first monster dungeons.");
 
-            String monsterChoice = Input.getString().toLowerCase();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET
+                    + "Each level of the dungeon will have 10 monsters. You must hunt all of them to clear each dungeon.");
+            Item monsterDungeonTwoKey = new Item(Item.MONSTER_DUNGEON_TWO_KEY);
+            monsterDungeonTwoKey.name = "Monster Dungeon 2 Key";
+            monsterDungeonTwoKey.description = "A key to unlock the second monster dungeon. You can get the key after clearing the first monster dungeon";
+            monsterDungeonTwoKey.price = 100;
 
-            if (monsterChoice.equals("monster dungeon 1")) {
-                MonsterDungeons.monsterDungeonOne();
-            }
+            Quest monsterDungeonOneQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_ONE);
+            monsterDungeonOneQuest.name = "Hunt 10 monsters in Dungeon One";
+            monsterDungeonOneQuest.description = "You must hunt 10 monsters in the Dungeon One";
+            monsterDungeonOneQuest.rewardGold = 20;
+            monsterDungeonOneQuest.rewardItems.add(monsterDungeonTwoKey);
+            Hero.addQuest(monsterDungeonOneQuest);
+        }
 
+        // MONSTER DUNGEON LEVEL TWO
+        if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)
+                && Hero.hasItem(Item.MONSTER_DUNGEON_THREE_KEY)
+                && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
+
+            // give quest ( copy from the MONSTER DUNGEON LEVEL ONE )
+            Input.pressEnterToContinue();
+        }
+
+        System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
+                ConsoleColors.RESET
+                + "Select where you want to go: ( " + ConsoleColors.BLUE
+                + "Monster Dungeon 1, Monster Dungeon 2, Monster Dungeon 3" + ConsoleColors.RESET + " )");
+
+        String monsterChoice = Input.getString().toLowerCase();
+
+        if (monsterChoice.equals("monster dungeon 1")) {
+            MonsterDungeons.monsterDungeonOne();
+        } else if (monsterChoice.equals("monster dungeon 2")) {
+            MonsterDungeons.monsterDungeonTwo();
+        } else if (monsterChoice.equals("monster dungeon 3")) {
+            MonsterDungeons.monsterDungeonThree();
+        } else if (monsterChoice.equals("back")) {
+            return Locations.TOWN_START;
         }
 
         return Locations.TOWN_START;
