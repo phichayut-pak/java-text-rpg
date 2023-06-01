@@ -71,9 +71,7 @@ public class Town {
 
     public static String doShop() {
         Game.clearScreen();
-        System.out
-                .println(ConsoleColors.YELLOW_BOLD + "[Shop] " + ConsoleColors.RESET + "The shop is currently closed");
-
+        Shop.doShop();
         // make it open later
         Input.pressEnterToContinue();
         return Locations.TOWN_START;
@@ -236,8 +234,9 @@ public class Town {
                 && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
 
             Game.clearScreen();
-            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET + "Ah, brave hero! You have conquered the first dungeon and now stand before the entrance of the next. Steel your heart, for greater challenges lie ahead. May fortune favor your endeavors!");
-            
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET
+                    + "Ah, brave hero! You have conquered the first dungeon and now stand before the entrance of the next. Steel your heart, for greater challenges lie ahead. May fortune favor your endeavors!");
+
             Item monsterDungeonThreeKey = new Item(Item.MONSTER_DUNGEON_THREE_KEY);
             monsterDungeonThreeKey.name = "Monster Dungeon 3 Key";
             monsterDungeonThreeKey.description = "A key to unlock the third monster dungeon. You can get the key after clearing the second monster dungeon";
@@ -252,32 +251,55 @@ public class Town {
             Input.pressEnterToContinue();
         }
 
-        if(Hero.hasCompletedQuest(Quest.FIND_THE_WALLET)) {
-            
+        // MONSTER DUNGEON LEVEL THREE
+        if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)
+                && Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO)
+                && Hero.hasItem(Item.MONSTER_DUNGEON_THREE_KEY) && !Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
+
+            Game.clearScreen();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET +
+                    "Congratulations, valiant adventurer, on clearing Dungeon 2 and proving your prowess. The path of glory beckons you once again as Dungeon 3 awaits. Brace yourself for new challenges and untold treasures that lie within its depths. Will you accept the quest and continue your epic journey?");
+
+            Item monsterDungeonThreeKey = new Item(Item.MONSTER_DUNGEON_THREE_KEY);
+            monsterDungeonThreeKey.name = "Boss Dungeon 1 Key";
+            monsterDungeonThreeKey.description = "A key to unlock the third monster dungeon. You can get the key after clearing the second monster dungeon";
+            monsterDungeonThreeKey.price = 100;
+
+            Quest monsterDungeonThreeQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_THREE);
+            monsterDungeonThreeQuest.name = "Hunt 10 werewolves in Dungeon Two";
+            monsterDungeonThreeQuest.description = "You must hunt 10 werewolves in the Dungeon Three";
+            monsterDungeonThreeQuest.rewardGold = 20;
+            monsterDungeonThreeQuest.rewardItems.add(monsterDungeonThreeKey);
+            Hero.addQuest(monsterDungeonThreeQuest);
+            Input.pressEnterToContinue();
+        }
+
+        if (Hero.hasCompletedQuest(Quest.FIND_THE_WALLET)) {
+
             do {
                 Game.clearScreen();
                 System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
                         ConsoleColors.RESET
                         + "Select where you want to go: ( " + ConsoleColors.BLUE
                         + "Monster Dungeon 1, Monster Dungeon 2, Monster Dungeon 3, back" + ConsoleColors.RESET + " )");
-                
+
                 String monsterChoice = Input.getString().toLowerCase();
-        
+
                 if (monsterChoice.equals("monster dungeon 1")) {
                     MonsterDungeons.monsterDungeonOne();
-                    if(Hero.health <= 0) {
+                    if (Hero.health <= 0) {
                         return Locations.QUITGAME;
                     }
                     return Locations.TOWN_START;
                 } else if (monsterChoice.equals("monster dungeon 2")) {
                     MonsterDungeons.monsterDungeonTwo();
-                    if(Hero.health <= 0) {
+                    if (Hero.health <= 0) {
                         return Locations.QUITGAME;
                     }
                     return Locations.TOWN_START;
                 } else if (monsterChoice.equals("monster dungeon 3")) {
                     MonsterDungeons.monsterDungeonThree();
-                    if(Hero.health <= 0) {
+                    if (Hero.health <= 0) {
                         return Locations.QUITGAME;
                     }
                     return Locations.TOWN_START;
@@ -287,9 +309,8 @@ public class Town {
 
                 }
             } while (true);
-        
-        }
 
+        }
 
         return Locations.TOWN_START;
     }
