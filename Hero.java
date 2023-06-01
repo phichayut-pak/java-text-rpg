@@ -12,7 +12,7 @@ public class Hero {
   public static int job;
   public static int gold = 100;
   public static int speed;
-  public static int monsterDungeonProgress;
+
   public static ArrayList<Item> inventory = new ArrayList<Item>();
   public static ArrayList<Quest> quests = new ArrayList<Quest>();
 
@@ -69,44 +69,107 @@ public class Hero {
 
     while (initialStatsUpgrade != 0) {
       System.out.format("You are given %d points left to upgrade your initial stats!\n", initialStatsUpgrade);
-      System.out.format("1. Attack Damage: %d\n2. Magic Damage: %d\n3. Speed: %d\n4. Max Health: %d\n",
-          Hero.attackDamage, Hero.magicDamage, Hero.speed, Hero.maxHealth);
-      System.out.println("You're choosing (1/2/3/4): ");
+      if(Hero.job == 1) {
+        System.out.format("1. Attack Damage: %d\n2. Speed: %d\n3. Max Health: %d\n",
+            Hero.attackDamage, Hero.speed, Hero.maxHealth);
+        System.out.println("You're choosing (1/2/3): ");
+        int chosenNumber = Input.getInt();
+  
+        switch (chosenNumber) {
+          case 1:
+            initialStatsUpgrade--;
+            Hero.attackDamage++;
+  
+            break;
+  
+          case 2:
+            initialStatsUpgrade--;
+            Hero.speed++;
+  
+            break;
+  
+          case 3:
+            initialStatsUpgrade--;
+            Hero.maxHealth++;
+            Hero.health = Hero.maxHealth;
+  
+            break;
+  
+          default:
+            System.out.println("Wrong number. You can choose only 1 to 3");
+            Input.pressEnterToContinue();
+            break;
+        }
+      } else if (Hero.job == 2) {
+        System.out.format("1. Magic Damage: %d\n2. Speed: %d\n3. Max Health: %d\n",
+            Hero.magicDamage, Hero.speed, Hero.maxHealth);
+        System.out.println("You're choosing (1/2/3): ");
+        int chosenNumber = Input.getInt();
+  
+        switch (chosenNumber) {
+          case 1:
+            initialStatsUpgrade--;
+            Hero.magicDamage++;
+  
+            break;
+  
+          case 2:
+            initialStatsUpgrade--;
+            Hero.speed++;
+  
+            break;
+  
+          case 3:
+            initialStatsUpgrade--;
+            Hero.maxHealth++;
+            Hero.health = Hero.maxHealth;
+  
+            break;
+  
+          default:
+            System.out.println("Wrong number. You can choose only 1 to 3");
+            Input.pressEnterToContinue();
+            break;
+        }
+      } else if (Hero.job == 3) {
+        System.out.format("1. Attack Damage: %d\n2. Magic Damage: %d\n3. Speed: %d\n4. Max Health: %d\n",
+            Hero.attackDamage, Hero.magicDamage, Hero.speed, Hero.maxHealth);
+        System.out.println("You're choosing (1/2/3/4): ");
+        int chosenNumber = Input.getInt();
+  
+        switch (chosenNumber) {
+          case 1:
+            initialStatsUpgrade--;
+            Hero.attackDamage++;
+  
+            break;
 
-      int chosenNumber = Input.getInt();
-
-      switch (chosenNumber) {
-        case 1:
+          case 2:
           initialStatsUpgrade--;
           Hero.attackDamage++;
 
           break;
-
-        case 2:
-          initialStatsUpgrade--;
-          Hero.magicDamage++;
-
-          break;
-
-        case 3:
-          initialStatsUpgrade--;
-          Hero.speed++;
-
-
-          break;
-
-        case 4:
-          initialStatsUpgrade--;
-          Hero.maxHealth++;
-          Hero.health = Hero.maxHealth;
-
-          break;
-
-        default:
-          System.out.println("Wrong number. You can choose only 1 to 4");
-          break;
-
+  
+          case 3:
+            initialStatsUpgrade--;
+            Hero.speed++;
+  
+            break;
+  
+          case 4:
+            initialStatsUpgrade--;
+            Hero.maxHealth++;
+            Hero.health = Hero.maxHealth;
+  
+            break;
+  
+          default:
+            System.out.println("Wrong number. You can choose only 1 to 4");
+            Input.pressEnterToContinue();
+            break;
+        }
       }
+
 
       Game.clearScreen();
     }
@@ -136,6 +199,38 @@ public class Hero {
 
     System.out.println(ConsoleColors.CYAN_BRIGHT);
     System.out.println("You have acquired an item: " + item.name);
+    if(item.id == Item.SMALL_HEALTH_EMBLEM) {
+      Hero.maxHealth += 5;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your max health is now " + Hero.maxHealth + " (" + Hero.health + "/" + Hero.maxHealth + ")");
+    } else if(item.id == Item.MEDIUM_HEALTH_EMBLEM) {
+      Hero.maxHealth += 10;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your max health is now " + Hero.maxHealth + " (" + Hero.health + "/" + Hero.maxHealth + ")");
+    } else if(item.id == Item.LARGE_HEALTH_EMBLEM) {
+      Hero.maxHealth += 15;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your max health is now " + Hero.maxHealth + " (" + Hero.health + "/" + Hero.maxHealth + ")");
+    } else if(item.id == Item.SMALL_ATTACK_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your attack damage is now increased");
+    } else if(item.id == Item.MEDIUM_ATTACK_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your attack damage is now increased");
+    } else if(item.id == Item.LARGE_ATTACK_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your attack damage is now increased");
+    } else if(item.id == Item.SMALL_MAGIC_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your magic damage is now increased");
+    } else if(item.id == Item.MEDIUM_MAGIC_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your magic damage is now increased");
+    } else if(item.id == Item.LARGE_MAGIC_EMBLEM) {
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your magic damage is now increased");
+    } else if(item.id == Item.SMALL_SPEED_EMBLEM) {
+      Hero.speed += 5;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your speed is now " + Hero.speed);
+    } else if(item.id == Item.MEDIUM_SPEED_EMBLEM) {
+      Hero.speed += 10;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your speed is now " + Hero.speed);
+    } else if(item.id == Item.LARGE_SPEED_EMBLEM) {
+      Hero.speed += 15;
+      System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " + ConsoleColors.RESET + "Your speed is now " + Hero.speed);
+    }
+
     System.out.println(ConsoleColors.RESET);
   }
 
@@ -199,7 +294,7 @@ public class Hero {
   public static void showQuests() {
     System.out.println("HERO QUESTS!");
     for (Quest q : Hero.quests) {
-      System.out.println(q.name + "(ID: " + q.id + " ) " + Hero.hasCompletedQuest(q.id));
+      System.out.println(q.name + "(ID: " + q.id + " ) ");
     }
   }
 
@@ -248,14 +343,64 @@ public class Hero {
 
   public static void attack(Monster enemy) {
     int attack = 0;
+    // NORMAL +3
+    // SMALL +5
+    // MEDIUM +10
+    // LARGE +15
 
-    if(Hero.job == 1) {
+
+    if(Hero.job == 1 && Hero.hasItem(Item.LARGE_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.attackDamage) + 15;
+    } else if (Hero.job == 1 && Hero.hasItem(Item.MEDIUM_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.attackDamage) + 10;
+    } else if (Hero.job == 1 && Hero.hasItem(Item.SMALL_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.attackDamage) + 5;
+    } else if (Hero.job == 1) {
       attack = Game.random.nextInt(Hero.attackDamage) + 3;
+    }
+    
+    if(Hero.job == 2 && Hero.hasItem(Item.LARGE_MAGIC_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.magicDamage) + 15;
+    } else if (Hero.job == 2 && Hero.hasItem(Item.MEDIUM_MAGIC_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.magicDamage) + 10;
+    } else if (Hero.job == 2 && Hero.hasItem(Item.SMALL_MAGIC_EMBLEM)) {
+      attack = Game.random.nextInt(Hero.magicDamage) + 5;
     } else if (Hero.job == 2) {
       attack = Game.random.nextInt(Hero.magicDamage) + 3;
-    } else if (Hero.job == 3) {
-      attack = Game.random.nextInt(((Hero.attackDamage + 10) + (Hero.magicDamage + 10)) / 2) + 3;
     }
+    
+    // large + large
+    // large + medium
+    // large + small
+    // medium + large
+    // medium + meduim
+    // medium + small
+    // small + large
+    // small + medium
+    // small + small
+
+
+    if(Hero.job == 3 && Hero.hasItem(Item.LARGE_MAGIC_EMBLEM) && Hero.hasItem(Item.LARGE_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 15) + (Hero.attackDamage + 10 + 15)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.LARGE_MAGIC_EMBLEM) && Hero.hasItem(Item.MEDIUM_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 15) + (Hero.attackDamage + 10 + 10)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.LARGE_MAGIC_EMBLEM) && Hero.hasItem(Item.SMALL_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 15) + (Hero.attackDamage + 10 + 5)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.MEDIUM_MAGIC_EMBLEM) && Hero.hasItem(Item.LARGE_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 10) + (Hero.attackDamage + 10 + 15)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.MEDIUM_MAGIC_EMBLEM) && Hero.hasItem(Item.MEDIUM_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 10) + (Hero.attackDamage + 10 + 10)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.MEDIUM_MAGIC_EMBLEM) && Hero.hasItem(Item.SMALL_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 10) + (Hero.attackDamage + 10 + 5)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.SMALL_MAGIC_EMBLEM) && Hero.hasItem(Item.LARGE_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 5) + (Hero.attackDamage + 10 + 15)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.SMALL_MAGIC_EMBLEM) && Hero.hasItem(Item.MEDIUM_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 5) + (Hero.attackDamage + 10 + 10)) / 2) + 3;
+    } else if(Hero.job == 3 && Hero.hasItem(Item.SMALL_MAGIC_EMBLEM) && Hero.hasItem(Item.SMALL_ATTACK_EMBLEM)) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10 + 5) + (Hero.attackDamage + 10 + 5)) / 2) + 3;
+    } else if(Hero.job == 3) {
+      attack = Game.random.nextInt(((Hero.magicDamage + 10) + (Hero.attackDamage + 10)) / 2) + 3;
+    } 
 
     enemy.health = enemy.health - attack;
 

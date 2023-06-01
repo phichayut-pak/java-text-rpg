@@ -19,10 +19,10 @@ public class MonsterDungeons {
 
 			Input.pressEnterToContinue();
 		} else if (Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE)) {
-			System.out.println(ConsoleColors.WHITE_BACKGROUND + ConsoleColors.BLACK_BOLD + "Monster 1");
-
 			for (int i = 0; i < 10; i++) {
+				Game.clearScreen();
 				System.out.println(ConsoleColors.GREEN_BOLD + "[Zombie] " + ConsoleColors.RESET + "Mrh? Mrh? Bruhhhh");
+				Input.pressEnterToContinue();
 				Monster zombie = new Monster("Zombie");
 				zombie.attackDamage = 4; // 4
 				zombie.health = 10;
@@ -73,12 +73,13 @@ public class MonsterDungeons {
 
 			Input.pressEnterToContinue();
 		} else if (Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO)) {
-			System.out.println(ConsoleColors.WHITE_BACKGROUND + ConsoleColors.BLACK_BOLD + "Monster 2");
-
 			for (int i = 0; i < 10; i++) {
+				Game.clearScreen();
 				System.out.println(ConsoleColors.GREEN_BOLD + "[Spider] " + ConsoleColors.RESET + "Sssss Tssss");
+				Input.pressEnterToContinue();
+
 				Monster spider = new Monster("Spider");
-				spider.attackDamage = 1; // 8
+				spider.attackDamage = 7; // 7
 				spider.health = 6;
 				spider.speed = 12;
 				spider.rewardGold = 15;
@@ -128,12 +129,13 @@ public class MonsterDungeons {
 
 			Input.pressEnterToContinue();
 		} else if (Hero.hasQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
-			System.out.println(ConsoleColors.WHITE_BACKGROUND + ConsoleColors.BLACK_BOLD + "Monster 3");
-
 			for (int i = 0; i < 10; i++) {
+				Game.clearScreen();
 				System.out.println(ConsoleColors.GRAY_BOLD + "[Werewolf] " + ConsoleColors.RESET + "Awoooo!");
+				Input.pressEnterToContinue();
+
 				Monster werewolf = new Monster("Werewolf");
-				werewolf.attackDamage = 3; // 3
+				werewolf.attackDamage = 10; // 10
 				werewolf.health = 10;
 				werewolf.speed = 15;
 				werewolf.rewardGold = 20;

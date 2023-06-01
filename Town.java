@@ -266,7 +266,7 @@ public class Town {
             monsterDungeonThreeKey.price = 100;
 
             Quest monsterDungeonThreeQuest = new Quest(Quest.MONSTER_DUNGEON_LEVEL_THREE);
-            monsterDungeonThreeQuest.name = "Hunt 10 werewolves in Dungeon Two";
+            monsterDungeonThreeQuest.name = "Hunt 10 werewolves in Dungeon Three";
             monsterDungeonThreeQuest.description = "You must hunt 10 werewolves in the Dungeon Three";
             monsterDungeonThreeQuest.rewardGold = 20;
             monsterDungeonThreeQuest.rewardItems.add(monsterDungeonThreeKey);
@@ -325,10 +325,106 @@ public class Town {
         }
 
         // Never have the Quest
-        if (!Hero.hasQuest(Quest.BOSS_DUNGEON_LEVEL_ONE)) {
+        if (!Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
             System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET
                     + "Sorry, traveler. You are not ready to get in this place yet.");
         }
+
+        // BOSS DUNGEON LEVEL ONE
+        if (!Hero.hasQuest(Quest.BOSS_DUNGEON_LEVEL_ONE)) {
+
+            Game.clearScreen();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET +
+                    "Astounding! You have conquered the treacherous depths of Dungeon 3 and emerged victorious. Your unwavering determination has brought you the key to the boss dungeon. Behold, the challenges ahead are formidable, but the rewards are boundless. Prepare yourself, brave adventurer, for the ultimate test that awaits you in the Boss Dungeon. Are you ready to face the unknown and claim your destiny?");
+
+            Item bossDungeonTwoKey = new Item(Item.BOSS_DUNGEON_TWO_KEY);
+            bossDungeonTwoKey.name = "Boss Dungeon 2 Key";
+            bossDungeonTwoKey.description = "A key to unlock the second boss dungeon. You can get the key after clearing the first boss dungeon";
+            bossDungeonTwoKey.price = 100;
+
+            Quest bossDungeonOneQuest = new Quest(Quest.BOSS_DUNGEON_LEVEL_ONE);
+            bossDungeonOneQuest.name = "Kill the boss in the first boss dungeon";
+            bossDungeonOneQuest.description = "You must kill a boss in the first boss dungeon";
+            bossDungeonOneQuest.rewardGold = 100;
+            bossDungeonOneQuest.rewardItems.add(bossDungeonTwoKey);
+            Hero.addQuest(bossDungeonOneQuest);
+            Input.pressEnterToContinue();
+        }
+
+        // BOSS DUNGEON LEVEL TWO
+        if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE) && Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO) && Hero.hasCompletedQuest((Quest.MONSTER_DUNGEON_LEVEL_THREE)) && Hero.hasItem(Item.BOSS_DUNGEON_TWO_KEY) && Hero.hasCompletedQuest(Quest.BOSS_DUNGEON_LEVEL_ONE) && !Hero.hasQuest(Quest.BOSS_DUNGEON_LEVEL_TWO)) {
+
+            Game.clearScreen();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET +
+                    "Your unwavering resolve has carried you through the trials of Dungeon 3, and now the time has come to face an even greater challenge. The Boss Dungeon 2 awaits, a realm of formidable foes and untold treasures. Prepare yourself, courageous adventurer, for this perilous encounter will test your mettle like never before. Are you ready to defy the odds and claim victory?");
+
+            Item bossDungeonThreeKey = new Item(Item.BOSS_DUNGEON_THREE_KEY);
+            bossDungeonThreeKey.name = "Boss Dungeon 3 Key";
+            bossDungeonThreeKey.description = "A key to unlock the third boss dungeon. You can get the key after clearing the second boss dungeon";
+            bossDungeonThreeKey.price = 100;
+
+            Quest bossDungeonTwoQuest = new Quest(Quest.BOSS_DUNGEON_LEVEL_TWO);
+            bossDungeonTwoQuest.name = "Kill the boss in the second boss dungeon";
+            bossDungeonTwoQuest.description = "You must kill a boss in the second boss dungeon";
+            bossDungeonTwoQuest.rewardGold = 200;
+            bossDungeonTwoQuest.rewardItems.add(bossDungeonThreeKey);
+            Hero.addQuest(bossDungeonTwoQuest);
+            Input.pressEnterToContinue();
+        }
+
+        // BOSS DUNGEON LEVEL THREE
+        if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_ONE) && Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_TWO) && Hero.hasCompletedQuest((Quest.MONSTER_DUNGEON_LEVEL_THREE)) &&  Hero.hasCompletedQuest(Quest.BOSS_DUNGEON_LEVEL_ONE) && Hero.hasCompletedQuest(Quest.BOSS_DUNGEON_LEVEL_TWO) && Hero.hasItem(Item.BOSS_DUNGEON_THREE_KEY) && !Hero.hasQuest(Quest.BOSS_DUNGEON_LEVEL_THREE)) {
+
+            Game.clearScreen();
+            System.out.println(ConsoleColors.RED_BOLD + "[Dungeon Master] " + ConsoleColors.RESET +
+                    "Astounding! You have conquered the treacherous depths of Dungeon 3 and emerged victorious. Your unwavering determination has brought you the key to the boss dungeon. Behold, the challenges ahead are formidable, but the rewards are boundless. Prepare yourself, brave adventurer, for the ultimate test that awaits you in the Boss Dungeon. Are you ready to face the unknown and claim your destiny?");
+
+            Quest bossDungeonThreeQuest = new Quest(Quest.BOSS_DUNGEON_LEVEL_THREE);
+            bossDungeonThreeQuest.name = "Kill the boss in the third boss dungeon";
+            bossDungeonThreeQuest.description = "You must kill a boss in the thrid boss dungeon";
+            bossDungeonThreeQuest.rewardGold = 300;
+            Hero.addQuest(bossDungeonThreeQuest);
+            Input.pressEnterToContinue();
+        }
+
+        if (Hero.hasCompletedQuest(Quest.MONSTER_DUNGEON_LEVEL_THREE)) {
+
+            do {
+                Game.clearScreen();
+                System.out.println(ConsoleColors.GREEN_BOLD + "[Console] " +
+                        ConsoleColors.RESET
+                        + "Select where you want to go: ( " + ConsoleColors.BLUE
+                        + "Boss Dungeon 1, Boss Dungeon 2, Boss Dungeon 3, back" + ConsoleColors.RESET + " )");
+
+                String monsterChoice = Input.getString().toLowerCase();
+
+                if (monsterChoice.equals("boss dungeon 1")) {
+                    BossDungeons.bossDungeonOne();
+                    if (Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    }
+                    return Locations.TOWN_START;
+                } else if (monsterChoice.equals("boss dungeon 2")) {
+                    BossDungeons.bossDungeonTwo();
+                    if (Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    }
+                    return Locations.TOWN_START;
+                } else if (monsterChoice.equals("boss dungeon 3")) {
+                    BossDungeons.bossDungeonThree();
+                    if (Hero.health <= 0) {
+                        return Locations.QUITGAME;
+                    } else {
+                        return Locations.WINGAME;
+                    }
+                } else if (monsterChoice.equals("back")) {
+                    return Locations.TOWN_START;
+                } else {
+
+                }
+            } while (true);
+        }
+
 
         Input.pressEnterToContinue();
         return Locations.TOWN_START;

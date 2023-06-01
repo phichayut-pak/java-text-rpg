@@ -44,7 +44,6 @@ public class Game {
 
     // game loop will go here
 
-    Art.quitGameArt();
     Art.quitGameTitle();
     System.out.print(ConsoleColors.RESET);
   }
