@@ -19,7 +19,7 @@ public class BossDungeons {
       Input.pressEnterToContinue();
       Monster emberfang = new Monster("Emberfang");
       emberfang.attackDamage = 12; // 30
-      emberfang.health = 100;
+      emberfang.health = 50;
       emberfang.speed = 10;
       emberfang.rewardGold = 500;
       emberfang.rewardXP = 100;
@@ -73,7 +73,7 @@ public class BossDungeons {
 
       Monster frozenTyrant = new Monster("Frozen Tyrant");
       frozenTyrant.attackDamage = 15; // 8
-      frozenTyrant.health = 150;
+      frozenTyrant.health = 70;
       frozenTyrant.speed = 12;
       frozenTyrant.rewardGold = 1000;
       frozenTyrant.rewardXP = 150;
@@ -128,7 +128,7 @@ public class BossDungeons {
 
       Monster malumbrar = new Monster("Malumbrar");
       malumbrar.attackDamage = 20; // 8
-      malumbrar.health = 200;
+      malumbrar.health = 100;
       malumbrar.speed = 12;
       malumbrar.rewardGold = 15;
       malumbrar.rewardXP = 150;
